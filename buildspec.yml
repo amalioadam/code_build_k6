@@ -1,0 +1,15 @@
+version: 0.2
+
+phases:
+  install:
+    commands:
+      - echo Installing K6 ...
+      - curl https://github.com/loadimpact/k6/releases/download/v0.29.0/k6-v0.29.0-linux64.tar.gz -L | tar xvz --strip-components 1
+
+  build:
+    commands:
+      - echo Tests started on `date`
+      - ./k6 run test-api.js -e URL=https://test-api.k6.io/public/crocodiles/1/  -e MAX_P95_MS=200 -e MAX_FAILED_RATE=0.01
+  post_build:
+    commands:
+      - echo Tests completed on `date`
