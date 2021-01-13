@@ -4,6 +4,8 @@ phases:
   install:
     commands:
       - echo Installing K6 ...
+      - sudo apt-get update
+      - sudo apt install curl
       - curl https://github.com/loadimpact/k6/releases/download/v0.29.0/k6-v0.29.0-linux64.tar.gz -L | tar xvz --strip-components 1
 
   build:
