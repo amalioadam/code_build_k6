@@ -1,0 +1,48 @@
+# Example of git hub action project which triggers CodeBuild job
+name: Deploy to Amazon ECS
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+
+jobs:
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: eu-west-1
+    - name: Test and build project
+      run: |
+        echo "Put here step of building the service"
+
+    - name: Deploy private service to stage
+      run: |
+        echo "Put here step which deploys your app to the stage"
+        
+    - name: Run CodeBuild performance tests
+      uses: aws-actions/aws-codebuild-run-build@v1.0.3
+      with:
+        project-name: performance-tests
+        env-vars-for-codebuild: |
+          URL,
+          MAX_P95_MS,
+          MAX_FAILED_RATE
+      env:
+        # Pass the url of your stage deployed private service
+        URL: https://test-api.k6.io/public/crocodiles/1/
+        MAX_P95_MS: 200
+        event-MAX_FAILED_RATE: 0.01
+
+    - name: Deploy private service to production
+      run: |
+        echo "Put here step which deploys your app to the prod"

@@ -8,8 +8,12 @@ phases:
 
   build:
     commands:
-      - echo Tests started on `date`
-      - ./k6 run test-api.js -e URL=https://test-api.k6.io/public/crocodiles/1/  -e MAX_P95_MS=200 -e MAX_FAILED_RATE=0.01
+      #      Scripts env parameters are
+      #      - URL
+      #      - MAX_P95_MS
+      #      - MAX_FAILED_RATE
+      - echo "Test started with URL=$URL , MAX_P95_MS=$MAX_P95_MS, MAX_FAILED_RATE=$MAX_FAILED_RATE"
+      - ./k6 run test-api.js
   post_build:
     commands:
       - echo Tests completed on `date`
