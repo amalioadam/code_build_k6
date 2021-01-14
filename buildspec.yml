@@ -8,7 +8,7 @@ phases:
 
   build:
     commands:
-      #      Scripts env parameters are
+      #      Scripts environment parameters required by K6 test script
       #      - URL
       #      - MAX_P95_MS
       #      - MAX_FAILED_RATE
