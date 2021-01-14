@@ -38,7 +38,7 @@ jobs:
         # Pass the url of your stage deployed private service
         URL: https://test-api.k6.io/public/crocodiles/1/
         MAX_P95_MS: 200
-        event-MAX_FAILED_RATE: 0.01
+        MAX_FAILED_RATE: 0.01
 
     - name: Deploy private service to production
       run: |
