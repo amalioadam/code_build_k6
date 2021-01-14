@@ -1,5 +1,5 @@
 # Example of git hub action project which triggers CodeBuild job
-name: Deploy to Amazon ECS
+name: Performance tests
 on:
   push:
     branches:
